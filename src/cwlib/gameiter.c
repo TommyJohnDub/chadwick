@@ -272,6 +272,13 @@ cw_gamestate_process_advance(CWGameState *state,
     strcpy(state->pitchers[3], state->pitchers[2]);
     strcpy(state->catchers[3], state->catchers[2]);
   }
+  else if (event_data->advance[2] == 1) {
+    strcpy(state->runners[1], state->runners[2]);
+    state->runner_src_event[1] = state->runner_src_event[2];
+    strcpy(state->pitchers[1], state->pitchers[2]);
+    strcpy(state->catchers[1], state->catchers[2]);
+  }
+
   if (event_data->advance[2] >= 3 ||
       cw_event_runner_put_out(event_data, 2)) {
     if (event_data->fc_flag[2] && cw_event_runner_put_out(event_data, 2)) {
@@ -282,7 +289,7 @@ cw_gamestate_process_advance(CWGameState *state,
     strcpy(state->pitchers[2], "");
     strcpy(state->catchers[2], "");
   }
-    
+
   if (event_data->advance[1] == 2) {
     strcpy(state->runners[2], state->runners[1]);
     state->runner_src_event[2] = state->runner_src_event[1];
